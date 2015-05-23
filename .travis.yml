@@ -2,6 +2,7 @@ branches:
   only:
     - develop
     - master
+    - test_ltc
 
 language: go
 go:
@@ -20,6 +21,9 @@ before_install:
 - go get -v github.com/tools/godep
 - go get -v github.com/onsi/ginkgo/ginkgo
 - go get -v github.com/mattn/goveralls
+- mkdir -p $HOME/gopath/src/github.com/cloudfoundry-incubator/lattice
+- cp -r $HOME/gopath/src/github.com/ShwethaKumbla/lattice/ $HOME/gopath/src/github.com/cloudfoundry-incubator/
+
 after_success:
 - pushd ltc
 - 'echo "mode: set" > coverage.out'

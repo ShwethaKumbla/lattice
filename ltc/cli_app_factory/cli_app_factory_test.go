@@ -2,7 +2,6 @@ package cli_app_factory_test
 
 import (
 	"errors"
-	"sort"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -63,17 +62,10 @@ var _ = Describe("CliAppFactory", func() {
 			Expect(cliApp.Email).To(Equal("cf-lattice@lists.cloudfoundry.org"))
 			Expect(cliApp.Usage).To(Equal(cli_app_factory.LtcUsage))
 			Expect(cliApp.Commands).NotTo(BeEmpty())
-		})
 
-		It("lists the subcommands in alphabetical order", func() {
-			cliCommands := cliApp.Commands
-			Expect(cliCommands).NotTo(BeEmpty())
+			Expect(cliApp.Action).ToNot(BeNil())
 
-			var commandNames []string
-			for _, cmd := range cliCommands {
-				commandNames = append(commandNames, cmd.Name)
-			}
-			Expect(sort.StringsAreSorted(commandNames)).To(BeTrue())
+			Expect(cliApp.CommandNotFound).ToNot(BeNil())
 		})
 
 		Context("when invoked without latticeVersion set", func() {
@@ -258,4 +250,15 @@ var _ = Describe("CliAppFactory", func() {
 		})
 	})
 
+	//Describe("Cli Commands", func() {
+	//	It("return commands info", func() {
+	//		commands := cli_app_factory.CliCommands("~/",
+	//			&fake_exit_handler.FakeExitHandler{},
+	//			cliConfig,
+	//			lager.NewLogger("test"),
+	//			fakeTargetVerifier,
+	//			terminalUI)
+	//		Expect(commands).ToNot(BeNil())
+	//	})
+	//})
 })
